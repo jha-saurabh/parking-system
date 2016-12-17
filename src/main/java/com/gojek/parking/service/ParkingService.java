@@ -22,5 +22,5 @@ public interface ParkingService {
     List<Car> fetchCarsByColour(final String colour);
     ParkingSlot fetchParkingSlot(final Car car);
     List<ParkingSlot> fetchParkingsByColour(final String colour);
-    List<ParkingSlot> fetAllSlots();
+    List<ParkingSlot> fetchAllSlots();
 }

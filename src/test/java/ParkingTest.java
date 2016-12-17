@@ -26,7 +26,7 @@ public class ParkingTest {
     public void testCreateParking(){
         int  n = new Random().nextInt(50) + 1;
         parkingService.addParkingSlots(n);
-        Assert.assertTrue(parkingService.fetAllSlots().size() == n);
+        Assert.assertTrue(parkingService.fetchAllSlots().size() == n);
     }
 
     @Test

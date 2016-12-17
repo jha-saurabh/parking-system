@@ -23,126 +23,139 @@ public class ParkingController {
         try {
             parkingService = ParkingManager.getService();
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            String sCurrentLine = "";
-            while (!"EXIT".equalsIgnoreCase(sCurrentLine = br.readLine())){
-                File file = new File(sCurrentLine);
-                if (file.exists()){
-                    readFromFile(sCurrentLine);
-                } else {
-                    performAction(sCurrentLine);
+            if (args.length == 2) {
+                String inputFileName = args[0];
+                String outputFileName = args[1];
+                File inputFile = new File(Constants.RESOURCE_DIRECTORY + inputFileName);
+                File outputFile = new File(Constants.RESOURCE_DIRECTORY + outputFileName);
+                if (!outputFile.exists())
+                    outputFile.createNewFile();
+                if (inputFile.exists()) {
+                    readFromFile(inputFile, outputFile);
+                }
+            } else {
+                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                String sCurrentLine = "";
+                while (!"EXIT".equalsIgnoreCase(sCurrentLine = br.readLine())){
+                    System.out.println(performAction(sCurrentLine));
                 }
             }
+
         } catch (Exception e) {
             System.out.println("Exception while processing input" + e.getMessage());
         }
     }
 
-    private static void readFromFile(String sCurrentLine){
+    private static void readFromFile(File inputFile, File outputFile){
         try {
-            BufferedReader br = new BufferedReader(new FileReader(sCurrentLine));
+            BufferedReader br = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile.getAbsoluteFile()));
+            String sCurrentLine = "";
             while ((sCurrentLine = br.readLine()) != null){
-                performAction(sCurrentLine);
+                String output = performAction(sCurrentLine);
+                bw.write(output + "\n");
+                System.out.println(output);
             }
+            bw.close();
         } catch (IOException e) {
             System.out.println("Exception while reading file " + e.getMessage());
         }
 
     }
 
-    private static void performAction(String query) {
+    private static String performAction(String query) {
         String queries[] = query.split(" ");
         if (Constants.CREATE_PARKING.equals(queries[0])){
-            createParkings(Integer.parseInt(queries[1]));
+            return createParkings(Integer.parseInt(queries[1]));
         } else if (Constants.ALLOCATE_PARKING.equals(queries[0])){
-            allocateParking(queries[1], queries[2]);
+            return allocateParking(queries[1], queries[2]);
         } else if (Constants.CARS_COLOUR_QUERY.equals(queries[0])){
-            displayCarsByColour(queries[1]);
+            return displayCarsByColour(queries[1]);
         } else if (Constants.PARKING_COLOUR_QUERY.equals(queries[0])){
-            displayParkingByColour(queries[1]);
+            return displayParkingByColour(queries[1]);
         } else if (Constants.PARKING_SLOT_QUERY.equals(queries[0])){
-            displayParkingSlot(queries[1]);
+            return displayParkingSlot(queries[1]);
         } else if (Constants.PARKING_STATUS.equals(queries[0])){
-            displayParkingStatus();
+            return displayParkingStatus();
         } else if (Constants.RELEASE_PARKING.equals(queries[0])){
-            releaseParking(Integer.parseInt(queries[1]));
-        }
-
+            return releaseParking(Integer.parseInt(queries[1]));
+        } else return "";
     }
 
-    private static void createParkings(int n){
+    private static String createParkings(int n){
         try {
             parkingService.addParkingSlots(n);
-            System.out.println("Created a parking lot with " + n +  " slots");
+            return "Created a parking lot with " + n +  " slots";
         } catch (Exception e) {
-            System.out.println("Exception while creating parkings " + e.getMessage());
+            return "Exception while creating parkings " + e.getMessage();
         }
     }
 
-    private static void allocateParking(String registerNo, String colour){
+    private static String allocateParking(String registerNo, String colour){
         try {
             Car car = new Car();
             car.setRegisterationNo(registerNo);
             car.setColour(colour);
             Ticket ticket = parkingService.allocateParking(car, parkingService.fetchNearestAvailableSlot());
             if (ticket != null){
-                System.out.println("Allocated slot number: " + (ticket.getParking().getSlot().getSlotNumber() + 1));
+                return "Allocated slot number: " + (ticket.getParking().getSlot().getSlotNumber() + 1);
             } else {
-                System.out.println("Sorry, parking lot is full");
+                return "Sorry, parking lot is full";
             }
         } catch (Exception e) {
-            System.out.println("Exception while allocating parking " + e.getMessage());
+            return "Exception while allocating parking " + e.getMessage();
         }
     }
 
-    private static void releaseParking(int slotNo){
+    private static String releaseParking(int slotNo){
 
         try {
             parkingService.releaseParking(slotNo - 1);
-            System.out.println("Slot number " + (slotNo) + " is free");
+            return "Slot number " + slotNo + " is free";
         } catch (Exception e) {
-            System.out.println("Exception while releasing parking " + e.getMessage());
+            return "Exception while releasing parking " + e.getMessage();
         }
     }
 
-    private static void displayParkingStatus(){
+    private static String displayParkingStatus(){
         ArrayList<Parking> parkings = parkingService.fetchParkings();
-        System.out.print("Slot No.\t" + "Registration No\t" + "Colour");
-        System.out.println();
+        String output = "Slot No.\t" + "Registration No\t" + "Colour";
+        output += "\n";
         for (Parking parking : parkings){
             ParkingSlot slot = parking.getSlot();
             Car car = parking.getCar();
-            System.out.print((slot.getSlotNumber() + 1) + "\t" + car.getRegisterationNo() + "\t" + car.getColour() );
-            System.out.println();
+            output += (slot.getSlotNumber() + 1) + "\t" + car.getRegisterationNo() + "\t" + car.getColour();
+            output += "\n";
         }
+        return output;
     }
 
-    private static void displayCarsByColour(String colour){
+    private static String displayCarsByColour(String colour){
         List<Car> carSet = parkingService.fetchCarsByColour(colour);
         String cars = "";
         Iterator<Car> iterator = carSet.iterator();
         while (iterator.hasNext()){
             cars += iterator.next().getRegisterationNo() + ",";
         }
-        System.out.println(cars.substring(0, cars.length() - 1));
+        return cars.substring(0, cars.length() - 1);
     }
 
-    private static void displayParkingByColour(String colour){
+    private static String displayParkingByColour(String colour){
         List<ParkingSlot> parkingSet = parkingService.fetchParkingsByColour(colour);
         String parkingList = "";
         Iterator<ParkingSlot> iterator = parkingSet.iterator();
         while (iterator.hasNext()){
             parkingList += iterator.next().getSlotNumber() + 1 + ",";
         }
-        System.out.println(parkingList.substring(0, parkingList.length() - 1));
+        return parkingList.substring(0, parkingList.length() - 1);
     }
 
-    private static void displayParkingSlot(String registerationNo){
+    private static String displayParkingSlot(String registerationNo){
         Car car = new Car();
         car.setRegisterationNo(registerationNo);
         ParkingSlot slot = parkingService.fetchParkingSlot(car);
         if (slot == null)
-            System.out.println("Not found");
-        else System.out.println(slot.getSlotNumber() + 1);
+            return "Not found";
+        else return slot.getSlotNumber() + 1 + "";
     }
 }

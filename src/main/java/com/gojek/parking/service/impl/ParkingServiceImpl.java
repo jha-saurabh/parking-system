@@ -88,7 +88,7 @@ public class ParkingServiceImpl implements ParkingService {
         return sortedList;
     }
 
-    public List<ParkingSlot> fetAllSlots() {
+    public List<ParkingSlot> fetchAllSlots() {
         return parkingSlots;
     }
 
