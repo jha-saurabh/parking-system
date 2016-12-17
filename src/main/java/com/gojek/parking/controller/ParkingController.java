@@ -26,8 +26,8 @@ public class ParkingController {
             if (args.length == 2) {
                 String inputFileName = args[0];
                 String outputFileName = args[1];
-                File inputFile = new File(Constants.RESOURCE_DIRECTORY + inputFileName);
-                File outputFile = new File(Constants.RESOURCE_DIRECTORY + outputFileName);
+                File inputFile = new File(inputFileName);
+                File outputFile = new File(outputFileName);
                 if (!outputFile.exists())
                     outputFile.createNewFile();
                 if (inputFile.exists()) {

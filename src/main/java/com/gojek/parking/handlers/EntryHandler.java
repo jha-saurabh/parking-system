@@ -26,6 +26,10 @@ public class EntryHandler {
         this.parkingMap = parkingTicketMap;
     }
 
+    /**
+     *
+     * @return
+     */
     public ParkingSlot fetchNearestAvailableSlot() {
         for (ParkingSlot slot : parkingSlots){
             if (slot.isAvailable())
@@ -34,6 +38,12 @@ public class EntryHandler {
         return null;
     }
 
+    /**
+     *
+     * @param car
+     * @param slot
+     * @return
+     */
     public Ticket allocateParking(final Car car, final ParkingSlot slot) {
         if (slot == null || car == null)
             return null;
@@ -54,6 +64,11 @@ public class EntryHandler {
         }
     }
 
+    /**
+     *
+     * @param car
+     * @param slot
+     */
     private void updateMaps(final Car car, final  ParkingSlot slot){
         Parking parking = new Parking();
         parking.setCar(car);
@@ -74,6 +89,12 @@ public class EntryHandler {
 
     }
 
+    /**
+     *
+     * @param car
+     * @param slot
+     * @return
+     */
     private Ticket createTicket(final Car car, final ParkingSlot slot) {
         Ticket ticket = new Ticket();
         ticket.setTicketId(UUID.randomUUID().toString().replaceAll("-", ""));

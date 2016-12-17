@@ -44,18 +44,38 @@ public class ParkingServiceImpl implements ParkingService {
         }
     }
 
+    /***
+     *
+     * @return
+     */
     public ParkingSlot fetchNearestAvailableSlot() {
         return entryHandler.fetchNearestAvailableSlot();
     }
 
+    /**
+     *
+     * @param car
+     * @param slot
+     * @return
+     */
     public Ticket allocateParking(Car car, ParkingSlot slot) {
         return entryHandler.allocateParking(car, slot);
     }
 
+    /**
+     *
+     * @param slotNo
+     * @return
+     */
     public boolean releaseParking(int slotNo) {
         return exitHandler.releaseParking(parkingMap.get(slotNo));
     }
 
+    /**
+     *
+     * @param colour
+     * @return
+     */
     public List<Car> fetchCarsByColour(String colour) {
         Set<Car> set = carsColourMap.get(colour);
         List<Car> sortedList = new ArrayList<Car>(set);
@@ -67,7 +87,11 @@ public class ParkingServiceImpl implements ParkingService {
         return sortedList;
     }
 
-
+    /**
+     *
+     * @param car
+     * @return
+     */
     public ParkingSlot fetchParkingSlot(Car car) {
         for (Integer key : parkingMap.keySet()){
             Parking parking = parkingMap.get(key);
@@ -77,6 +101,11 @@ public class ParkingServiceImpl implements ParkingService {
         return null;
     }
 
+    /**
+     *
+     * @param colour
+     * @return
+     */
     public List<ParkingSlot> fetchParkingsByColour(String colour) {
         Set<ParkingSlot> set = parkingColourMap.get(colour);
         List<ParkingSlot> sortedList = new ArrayList<ParkingSlot>(set);
@@ -88,10 +117,18 @@ public class ParkingServiceImpl implements ParkingService {
         return sortedList;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<ParkingSlot> fetchAllSlots() {
         return parkingSlots;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Parking> fetchParkings(){
         ArrayList<Parking> parkings = new ArrayList<Parking>();
         for (Integer key : parkingMap.keySet()){

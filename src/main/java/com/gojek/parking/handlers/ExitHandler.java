@@ -26,6 +26,11 @@ public class ExitHandler {
         this.parkingMap = parkingTicketMap;
     }
 
+    /**
+     *
+     * @param parking
+     * @return
+     */
     public boolean releaseParking(final Parking parking) {
         if (parking == null || parking.getSlot() == null || parking.getCar() == null)
             return false;

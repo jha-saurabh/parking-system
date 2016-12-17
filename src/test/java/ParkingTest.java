@@ -3,6 +3,7 @@ import com.gojek.parking.models.Car;
 import com.gojek.parking.models.ParkingSlot;
 import com.gojek.parking.models.Ticket;
 import com.gojek.parking.service.ParkingService;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -25,8 +26,9 @@ public class ParkingTest {
     @Test
     public void testCreateParking(){
         int  n = new Random().nextInt(50) + 1;
+        int currentSize = parkingService.fetchAllSlots().size() + n;
         parkingService.addParkingSlots(n);
-        Assert.assertTrue(parkingService.fetchAllSlots().size() == n);
+        Assert.assertTrue(parkingService.fetchAllSlots().size() == currentSize);
     }
 
     @Test
@@ -42,6 +44,8 @@ public class ParkingTest {
         Ticket ticket = parkingService.allocateParking(car, slot);
         Assert.assertTrue(ticket != null);
         Assert.assertTrue(ticket.getParking().getSlot().getSlotNumber() == slot.getSlotNumber());
+        Assert.assertTrue(ticket.getParking().getCar().getRegisterationNo().equals(registerationNo));
+        Assert.assertTrue(ticket.getParking().getCar().getColour().equals(colour));
     }
 
     @Test
@@ -54,7 +58,7 @@ public class ParkingTest {
         car.setRegisterationNo(registerationNo);
         car.setColour(colour);
         ParkingSlot slot = parkingService.fetchNearestAvailableSlot();
-        Ticket ticket = parkingService.allocateParking(car, slot);
+        parkingService.allocateParking(car, slot);
         Assert.assertTrue(parkingService.releaseParking(slot.getSlotNumber()));
     }
 
@@ -88,7 +92,22 @@ public class ParkingTest {
         ParkingSlot slot = parkingService.fetchNearestAvailableSlot();
         parkingService.allocateParking(car, slot);
 
-        List<Car> cars = parkingService.fetchCarsByColour(colour);
-        Assert.assertEquals(cars.get(0).getRegisterationNo(), registerationNo);
+        List<ParkingSlot> slots = parkingService.fetchParkingsByColour(colour);
+        for (ParkingSlot parkingSlot : slots){
+            if (parkingSlot.getSlotNumber() == slot.getSlotNumber())
+                return;
+        }
+
+        //didn't find the allocated slot
+        Assert.assertTrue(false);
+    }
+
+    @AfterClass
+    public static void clearParkings(){
+        List<ParkingSlot> slots = parkingService.fetchAllSlots();
+        for (ParkingSlot slot : slots){
+            parkingService.releaseParking(slot.getSlotNumber());
+        }
+
     }
 }
