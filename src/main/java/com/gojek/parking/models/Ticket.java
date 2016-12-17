@@ -1,4 +1,4 @@
-package models;
+package com.gojek.parking.models;
 
 import java.sql.Timestamp;
 
@@ -9,8 +9,7 @@ public class Ticket {
 
     private String ticketId;
     private long amount;
-    private Car car;
-    private ParkingSlot parkingSlot;
+    private Parking parking;
     private Timestamp bookingTime;
 
     public String getTicketId() {
@@ -29,14 +28,6 @@ public class Ticket {
         this.amount = amount;
     }
 
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
     public Timestamp getBookingTime() {
         return bookingTime;
     }
@@ -45,11 +36,11 @@ public class Ticket {
         this.bookingTime = bookingTime;
     }
 
-    public ParkingSlot getParkingSlot() {
-        return parkingSlot;
+    public Parking getParking() {
+        return parking;
     }
 
-    public void setParkingSlot(ParkingSlot parkingSlot) {
-        this.parkingSlot = parkingSlot;
+    public void setParking(Parking parking) {
+        this.parking = parking;
     }
 }
