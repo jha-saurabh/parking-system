@@ -10,6 +10,7 @@ public class Ticket {
     private String ticketId;
     private long amount;
     private Car car;
+    private ParkingSlot parkingSlot;
     private Timestamp bookingTime;
 
     public String getTicketId() {
@@ -42,5 +43,13 @@ public class Ticket {
 
     public void setBookingTime(Timestamp bookingTime) {
         this.bookingTime = bookingTime;
+    }
+
+    public ParkingSlot getParkingSlot() {
+        return parkingSlot;
+    }
+
+    public void setParkingSlot(ParkingSlot parkingSlot) {
+        this.parkingSlot = parkingSlot;
     }
 }
