@@ -13,7 +13,7 @@ import java.util.Set;
  */
 public class ExitHandler {
 
-    private ArrayList<ParkingSlot> parkingSlots = new ArrayList<ParkingSlot>();
+    private ArrayList<ParkingSlot> parkingSlots;
     private HashMap<String, Set<Car>> carsColourMap = new HashMap<String, Set<Car>>();
     private HashMap<String, Set<ParkingSlot>> parkingColourMap = new HashMap<String, Set<ParkingSlot>>();
     private HashMap<Integer, Parking> parkingMap = new HashMap<Integer, Parking>();

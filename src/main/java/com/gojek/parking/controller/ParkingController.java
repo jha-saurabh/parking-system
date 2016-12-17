@@ -53,11 +53,11 @@ public class ParkingController {
     private static void performAction(String query) {
         String queries[] = query.split(" ");
         if (Constants.CREATE_PARKING.equals(queries[0])){
-            createParkings(parkingService, Integer.parseInt(queries[1]));
+            createParkings(Integer.parseInt(queries[1]));
         } else if (Constants.ALLOCATE_PARKING.equals(queries[0])){
-            allocateParking(parkingService, queries[1], queries[2]);
+            allocateParking(queries[1], queries[2]);
         } else if (Constants.CARS_COLOUR_QUERY.equals(queries[0])){
-            displayCarsByColour(parkingService, queries[1]);
+            displayCarsByColour(queries[1]);
         } else if (Constants.PARKING_COLOUR_QUERY.equals(queries[0])){
             displayParkingByColour(queries[1]);
         } else if (Constants.PARKING_SLOT_QUERY.equals(queries[0])){
@@ -70,7 +70,7 @@ public class ParkingController {
 
     }
 
-    private static void createParkings(ParkingService parkingService, int n){
+    private static void createParkings(int n){
         try {
             parkingService.addParkingSlots(n);
             System.out.println("Created a parking lot with " + n +  " slots");
@@ -79,7 +79,7 @@ public class ParkingController {
         }
     }
 
-    private static void allocateParking(ParkingService parkingService, String registerNo, String colour){
+    private static void allocateParking(String registerNo, String colour){
         try {
             Car car = new Car();
             car.setRegisterationNo(registerNo);
@@ -117,7 +117,7 @@ public class ParkingController {
         }
     }
 
-    private static void displayCarsByColour(ParkingService parkingService, String colour){
+    private static void displayCarsByColour(String colour){
         List<Car> carSet = parkingService.fetchCarsByColour(colour);
         String cars = "";
         Iterator<Car> iterator = carSet.iterator();

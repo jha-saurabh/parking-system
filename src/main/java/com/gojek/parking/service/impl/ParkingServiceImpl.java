@@ -88,6 +88,10 @@ public class ParkingServiceImpl implements ParkingService {
         return sortedList;
     }
 
+    public List<ParkingSlot> fetAllSlots() {
+        return parkingSlots;
+    }
+
     public ArrayList<Parking> fetchParkings(){
         ArrayList<Parking> parkings = new ArrayList<Parking>();
         for (Integer key : parkingMap.keySet()){
