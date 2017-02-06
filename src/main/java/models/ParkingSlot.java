@@ -1,4 +1,4 @@
-package com.gojek.parking.models;
+package models;
 
 /**
  * Created by saurabh.jha on 17/12/16.

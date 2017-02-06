@@ -1,13 +1,12 @@
-package com.gojek.parking.service;
+package service;
 
-import com.gojek.parking.models.Car;
-import com.gojek.parking.models.Parking;
-import com.gojek.parking.models.ParkingSlot;
-import com.gojek.parking.models.Ticket;
+import models.Car;
+import models.Parking;
+import models.ParkingSlot;
+import models.Ticket;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by saurabh.jha on 17/12/16.

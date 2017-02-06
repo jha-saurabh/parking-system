@@ -1,9 +1,9 @@
-package com.gojek.parking.handlers;
+package handlers;
 
-import com.gojek.parking.models.Parking;
-import com.gojek.parking.models.ParkingSlot;
-import com.gojek.parking.models.Car;
-import com.gojek.parking.models.Ticket;
+import models.Parking;
+import models.ParkingSlot;
+import models.Car;
+import models.Ticket;
 
 import java.sql.Timestamp;
 import java.util.*;

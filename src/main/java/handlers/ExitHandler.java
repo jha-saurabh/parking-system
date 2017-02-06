@@ -1,8 +1,8 @@
-package com.gojek.parking.handlers;
+package handlers;
 
-import com.gojek.parking.models.Car;
-import com.gojek.parking.models.Parking;
-import com.gojek.parking.models.ParkingSlot;
+import models.Car;
+import models.Parking;
+import models.ParkingSlot;
 
 import java.util.ArrayList;
 import java.util.HashMap;

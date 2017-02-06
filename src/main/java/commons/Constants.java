@@ -1,4 +1,4 @@
-package com.gojek.parking.commons;
+package commons;
 
 /**
  * Created by saurabh.jha on 17/12/16.

@@ -1,8 +1,8 @@
-import com.gojek.parking.ParkingManager;
-import com.gojek.parking.models.Car;
-import com.gojek.parking.models.ParkingSlot;
-import com.gojek.parking.models.Ticket;
-import com.gojek.parking.service.ParkingService;
+import manager.ParkingManager;
+import models.Car;
+import models.ParkingSlot;
+import models.Ticket;
+import service.ParkingService;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;

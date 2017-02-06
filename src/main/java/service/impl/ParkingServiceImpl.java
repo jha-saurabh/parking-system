@@ -1,14 +1,13 @@
-package com.gojek.parking.service.impl;
+package service.impl;
 
-import com.gojek.parking.handlers.EntryHandler;
-import com.gojek.parking.handlers.ExitHandler;
-import com.gojek.parking.models.Car;
-import com.gojek.parking.models.Parking;
-import com.gojek.parking.models.ParkingSlot;
-import com.gojek.parking.models.Ticket;
-import com.gojek.parking.service.ParkingService;
+import handlers.EntryHandler;
+import handlers.ExitHandler;
+import models.Car;
+import models.Parking;
+import models.ParkingSlot;
+import models.Ticket;
+import service.ParkingService;
 
-import java.security.Key;
 import java.util.*;
 
 /**

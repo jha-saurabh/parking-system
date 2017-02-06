@@ -1,15 +1,14 @@
-package com.gojek.parking.controller;
+package controller;
 
-import com.gojek.parking.ParkingManager;
-import com.gojek.parking.commons.Constants;
-import com.gojek.parking.models.Car;
-import com.gojek.parking.models.Parking;
-import com.gojek.parking.models.ParkingSlot;
-import com.gojek.parking.models.Ticket;
-import com.gojek.parking.service.ParkingService;
+import manager.ParkingManager;
+import commons.Constants;
+import models.Car;
+import models.Parking;
+import models.ParkingSlot;
+import models.Ticket;
+import service.ParkingService;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**

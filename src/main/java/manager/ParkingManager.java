@@ -1,8 +1,8 @@
-package com.gojek.parking;
+package manager;
 
 
-import com.gojek.parking.service.ParkingService;
-import com.gojek.parking.service.impl.ParkingServiceImpl;
+import service.ParkingService;
+import service.impl.ParkingServiceImpl;
 
 /**
  * Created by saurabh.jha on 17/12/16.

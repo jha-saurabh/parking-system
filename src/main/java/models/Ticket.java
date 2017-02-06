@@ -1,4 +1,4 @@
-package com.gojek.parking.models;
+package models;
 
 import java.sql.Timestamp;
 
